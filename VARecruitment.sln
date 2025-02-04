@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VAArtGalleryWebAPI", "VARecruitmentWebAPI\VAArtGalleryWebAPI.csproj", "{3EBDAAFA-14F1-40CB-B041-B71465723FFC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VAArtGalleryWebAPITest", "VAArtGalleryWebAPITest\VAArtGalleryWebAPITest.csproj", "{58F824FB-DDCE-455A-BEF1-122F016A0117}"
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "VAArtGalleryWebApp", "VAArtGalleryWebApp\VAArtGalleryWebApp.esproj", "{25FC367A-FCB1-4629-9CBC-33C53E72492E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3EBDAAFA-14F1-40CB-B041-B71465723FFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EBDAAFA-14F1-40CB-B041-B71465723FFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EBDAAFA-14F1-40CB-B041-B71465723FFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EBDAAFA-14F1-40CB-B041-B71465723FFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58F824FB-DDCE-455A-BEF1-122F016A0117}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58F824FB-DDCE-455A-BEF1-122F016A0117}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58F824FB-DDCE-455A-BEF1-122F016A0117}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58F824FB-DDCE-455A-BEF1-122F016A0117}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FC367A-FCB1-4629-9CBC-33C53E72492E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25FC367A-FCB1-4629-9CBC-33C53E72492E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25FC367A-FCB1-4629-9CBC-33C53E72492E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{25FC367A-FCB1-4629-9CBC-33C53E72492E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25FC367A-FCB1-4629-9CBC-33C53E72492E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25FC367A-FCB1-4629-9CBC-33C53E72492E}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0662DADE-6C6A-47DF-80E8-86209B0E05FC}
+	EndGlobalSection
+EndGlobal

@@ -10,9 +10,9 @@ namespace VAArtGalleryWebAPI.WebApi.Controllers
     public class ArtGalleryController(IMediator mediator) : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<List<GetAllArtGalleriesResult>>> GetAllGalleries(int i)
+        public async Task<ActionResult<List<GetAllArtGalleriesResult>>> GetAllGalleries()
         {
-            var galleries = await mediator.Send(new GetAllArtGalleriesQuery() { i = i });
+            var galleries = await mediator.Send(new GetAllArtGalleriesQuery());
 
             var result = galleries.Select(g => new GetAllArtGalleriesResult(g.Id, g.Name, g.City, g.Manager, g.ArtWorksOnDisplay?.Count ?? 0)).ToList();
 
@@ -22,6 +22,16 @@ namespace VAArtGalleryWebAPI.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<CreateArtGalleryResult>> Create([FromBody] CreateArtGalleryRequest request)
         {
+            return StatusCode(StatusCodes.Status500InternalServerError, "Alguém vai ter de o implementar :)");
+        }
+
+
+        [HttpDelete]
+        [Route("{artWorkId}")]
+        public async Task<ActionResult<bool>> DeleteAsync([FromRoute] Guid artWorkId)
+        {
+            var galleries = await mediator.Send(new GetAllArtGalleriesQuery());
+
             return StatusCode(StatusCodes.Status500InternalServerError, "Alguém vai ter de o implementar :)");
         }
     }

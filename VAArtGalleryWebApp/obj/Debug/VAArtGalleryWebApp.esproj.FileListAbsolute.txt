@@ -1,1 +1,2 @@
 C:\DEV\AbreuRecruitment\_Base\VAArtGalleryWebApp\obj\Debug\VAArtGalleryWebApp.esproj.CoreCompileInputs.cache
+C:\Projetos\git\AbreuRecruitment\VAArtGalleryWebApp\obj\Debug\VAArtGalleryWebApp.esproj.CoreCompileInputs.cache

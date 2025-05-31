@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddRepositories(builder.Configuration);
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
-z
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

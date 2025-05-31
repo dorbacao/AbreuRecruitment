@@ -66,11 +66,8 @@ namespace VAArtGalleryWebAPI.Infrastructure
             var galleries = await new ArtGalleryRepository(_filePath).GetAllArtGalleriesAsync(cancellationToken);
 
             var gallery = galleries.Find(g => g.Id == artGalleryId) ?? throw new ArgumentException("unknown art gallery", nameof(artGalleryId));
-            if (gallery.ArtWorksOnDisplay == null)
-            {
-                return [];
-            }
-            return gallery.ArtWorksOnDisplay;
+
+            return gallery.ArtWorksOnDisplay ?? [];
         }
 
         private async Task UpdateGalleries(List<ArtGallery> galleries)

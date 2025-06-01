@@ -38,7 +38,9 @@
         <input matInput [(ngModel)]="newWork.askPrice">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="addWork()">Adicionar Obra</button>
+    <mat-dialog-actions align="end">
+        <button mat-raised-button color="primary" (click)="addWork()">Adicionar Obra</button>
+    </mat-dialog-actions>
 
     <h3>Lista de Obras</h3>
 
@@ -61,6 +63,13 @@
         <ng-container matColumnDef="askPrice">
             <th mat-header-cell *matHeaderCellDef> Preço Pedido </th>
             <td mat-cell *matCellDef="let work"> {{work.askPrice | money}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="delete">
+            <th mat-header-cell *matHeaderCellDef> Excluir </th>
+            <td mat-cell *matCellDef="let work; let i = index"> 
+                <button mat-button color="warn" (click)="removeWork(i)">Excluir</button>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

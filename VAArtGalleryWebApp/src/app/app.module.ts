@@ -18,6 +18,8 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(localePt);
 registerLocaleData(localeDe);
@@ -29,6 +31,7 @@ registerLocaleData(localeDe);
     NewGalleryDialogComponent,
     WorkComponent,
     MoneyPipe,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ registerLocaleData(localeDe);
     MatInputModule,
     MatButtonModule,
     FormsModule,
-    BrowserAnimationsModule 
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   exports:[MoneyPipe],
   providers: [  { provide: LOCALE_ID, useValue: 'pt-PT' }],

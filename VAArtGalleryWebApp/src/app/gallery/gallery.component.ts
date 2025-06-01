@@ -18,7 +18,10 @@ export class GalleryComponent implements OnInit {
   constructor(private galleryService: GalleryService, public dialog: MatDialog, private router: Router) { }
 
   ngOnInit(): void {
-    console.log('cenas');
+    this.refreshAllGallery();  
+  }
+
+  refreshAllGallery(): void{
     this.galleryService.getGalleries().subscribe(galleries => {this.galleries = galleries; console.log(this.galleries);});
   }
 
@@ -33,10 +36,13 @@ export class GalleryComponent implements OnInit {
   }
 
   addGallery() {
-    this.dialog.open(NewGalleryDialogComponent, {
+    let dialogResult = this.dialog.open(NewGalleryDialogComponent, {
       maxWidth: '100vw',
       width: '80%',
       data: new NewGallery(),
+    });
+    dialogResult.afterClosed().subscribe(()=>{
+      this.refreshAllGallery();
     });
   }
 }

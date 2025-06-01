@@ -1,5 +1,4 @@
 export interface IGallery {
-  id: string;
   name: string;
   city: string;
   manager: string;
@@ -15,24 +14,24 @@ export interface Gallery extends IGallery {
 
 export class NewGallery implements IGallery {
 
-  public id: string;
   public name: string;
   public city: string;
   public manager: string;
-  public works: NewWork[] = [];
+  public createArtWorkRequest: NewWork[] = [];
 
   constructor(){
-    this.id = '';
-    this.name = '';
-    this.city = '';
-    this.manager = '';
-    this.works = [];
+    this.name = 'Marcus';
+    this.city = 'Almada';
+    this.manager = 'Marcus';
+    this.createArtWorkRequest = [];
   }
   
-  
-
   addWorks(newWork: NewWork){
-    this.works.push(newWork);
+    this.createArtWorkRequest.push(newWork);
+  }
+
+  removeWork(index: number){
+    this.createArtWorkRequest.splice(index,1);
   }
   
 }
@@ -40,14 +39,12 @@ export class NewGallery implements IGallery {
 export class NewWork {
   
   constructor(){
-    this.id = '';
-    this.name = '';
-    this.author = '';
-    this.creationYear = 0;
-    this.askPrice = 0.00;
+    this.name = 'sdfgsdfg';
+    this.author = 'sdfgsdgfsdfg';
+    this.creationYear = 1986;
+    this.askPrice = 654654.00;
   }
 
-  public id: string;
   public name: string;
   public author: string;
   public creationYear: number;

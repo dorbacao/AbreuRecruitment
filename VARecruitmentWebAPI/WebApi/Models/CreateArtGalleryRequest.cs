@@ -1,9 +1,27 @@
-﻿namespace VAArtGalleryWebAPI.WebApi.Models
+﻿using MediatR;
+using System.Xml.Linq;
+using VAArtGalleryWebAPI.Application.Commands;
+using VAArtGalleryWebAPI.Domain.Entities;
+using VAArtGalleryWebAPI.WebApi.Models;
+
+namespace VAArtGalleryWebAPI.WebApi.Models
 {
-    public class CreateArtGalleryRequest(string name, string city, string manager)
+    public class CreateArtGalleryRequest
     {
-        public string Name { get; set; } = name;
-        public string City { get; set; } = city;
-        public string Manager { get; set; } = manager;
+        public string Name { get; set; }
+        public string City { get; set; }
+        public string Manager { get; set; }
+        public IList<CreateArtWorkRequest> CreateArtWorkRequest { get; set; } = new List<CreateArtWorkRequest>();
+
+        public CreateArtGalleryCommand ToCommand()
+        {
+            var artWorks = this
+                .CreateArtWorkRequest
+                .Select(artWork => new ArtWork(artWork.Name, artWork.Author, artWork.CreationYear, artWork.AskPrice)).ToList();
+            var command = new CreateArtGalleryCommand(this.Name, this.City, this.Manager, artWorks);
+
+            return command;
+
+        }
     }
 }

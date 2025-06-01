@@ -1,6 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using VAArtGalleryWebAPI.Application.Commands;
 using VAArtGalleryWebAPI.Application.Queries;
+using VAArtGalleryWebAPI.Domain.Entities;
 using VAArtGalleryWebAPI.WebApi.Models;
 
 namespace VAArtGalleryWebAPI.WebApi.Controllers
@@ -33,7 +36,11 @@ namespace VAArtGalleryWebAPI.WebApi.Controllers
         [HttpPost]
         public async Task<ActionResult<CreateArtGalleryResult>> Create([FromBody] CreateArtGalleryRequest request)
         {
-            return StatusCode(StatusCodes.Status500InternalServerError, "Alguém vai ter de o implementar :)");
+            var artGalleryId = await mediator.Send(request.ToCommand());
+
+            var result = new CreateArtGalleryResult(artGalleryId);
+
+            return StatusCode(StatusCodes.Status201Created, result);
         }
 
     }

@@ -5,3 +5,4 @@ export interface Work {
   creationYear: number;
   askPrice: number;
 }
+

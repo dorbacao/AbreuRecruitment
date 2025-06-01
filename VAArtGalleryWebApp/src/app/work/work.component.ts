@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Work } from './models';
 import { WorkService } from './work.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-work',
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class WorkComponent implements OnInit {
   works: Work[] = [];
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['name', 'author', 'creationYear', 'askPrice'];
 
   constructor(private workService: WorkService, private route: ActivatedRoute) { }
 

@@ -16,6 +16,7 @@ export class WorkService {
   constructor(private http: HttpClient) {}
 
   getArtWorks(galleryId: string): Observable<Work[]> {
-    return this.http.get<Work[]>(this.getBaseUrl(galleryId));
+    let url = this.getBaseUrl(galleryId, "art-works");
+    return this.http.get<Work[]>(url);
   }
 }

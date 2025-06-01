@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>Criando uma nova galeria</h2>
+<div mat-dialog-content class="main-container full-width-container">
+
+    <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput [(ngModel)]="newGallery.name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Cidade</mat-label>
+        <input matInput [(ngModel)]="newGallery.city">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Gerente</mat-label>
+        <input matInput [(ngModel)]="newGallery.manager">
+    </mat-form-field>
+
+    <h2>Nova Arte</h2>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Nome</mat-label>
+        <input matInput [(ngModel)]="newWork.name">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Autor</mat-label>
+        <input matInput [(ngModel)]="newWork.author">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Ano de Criação</mat-label>
+        <input matInput [(ngModel)]="newWork.creationYear">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Preço Solicitado</mat-label>
+        <input matInput [(ngModel)]="newWork.askPrice">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="addWork()">Adicionar Obra</button>
+
+    <h3>Lista de Obras</h3>
+
+    <table mat-table [dataSource]="dataSourceWorks" class="mat-elevation-z8">
+        <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nome </th>
+            <td mat-cell *matCellDef="let work"> {{work.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="author">
+            <th mat-header-cell *matHeaderCellDef> Autor </th>
+            <td mat-cell *matCellDef="let work"> {{work.author}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="creationYear">
+            <th mat-header-cell *matHeaderCellDef> Ano de Criação </th>
+            <td mat-cell *matCellDef="let work"> {{work.creationYear}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="askPrice">
+            <th mat-header-cell *matHeaderCellDef> Preço Pedido </th>
+            <td mat-cell *matCellDef="let work"> {{work.askPrice | money}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-dialog-actions>
+        <button mat-button color="primary" (click)="createNewGallery()">Salvar</button>
+        <button mat-button (click)="closeDialog()">Fechar</button>
+    </mat-dialog-actions>
+</div>
+

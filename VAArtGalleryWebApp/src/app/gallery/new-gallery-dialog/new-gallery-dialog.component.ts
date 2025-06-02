@@ -16,7 +16,7 @@ export class NewGalleryDialogComponent {
   
   public newGallery: NewGallery = new NewGallery();
   public newWork: NewWork = new NewWork();
-  public dataSourceWorks = new MatTableDataSource<NewWork>(this.newGallery.artWorkRequest);
+  public dataSourceWorks = new MatTableDataSource<NewWork>(this.newGallery.artWorks);
   displayedColumns: string[] = ['name', 'author', 'creationYear', 'askPrice', 'delete'];
 
   constructor(
@@ -31,7 +31,7 @@ export class NewGalleryDialogComponent {
     }
 
   refreshTable(): void{
-    this.dataSourceWorks.data = [...this.newGallery.artWorkRequest];
+    this.dataSourceWorks.data = [...this.newGallery.artWorks];
   }
 
   closeDialog(): void {

@@ -31,13 +31,25 @@ export class GalleryComponent implements OnInit {
   }
 
   editGalleryClick(galleryId: string) {
-    console.log(galleryId);
+
+    this.galleryService.getGallery(galleryId).subscribe(gallery => {
+
+      let dialogResult = this.dialog.open(NewGalleryDialogComponent, {
+        maxWidth: '100vw',
+        width: '80%',
+        data: gallery,
+      });
+      dialogResult.afterClosed().subscribe(()=>{
+        this.refreshAllGallery();
+      });
+
+    });
+
   }
 
   openArtWorksList(galleryId: string) {
     console.log(galleryId);
     this.router.navigate(["art-works", galleryId]);
-
   }
 
   deleteGallery(gallery: Gallery): void{

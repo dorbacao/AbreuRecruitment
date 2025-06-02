@@ -24,6 +24,27 @@ namespace VAArtGalleryWebAPI.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("{galleryId}")]
+        public async Task<ActionResult<GetArtGalleryResult>> GetGalleryById([FromRoute] Guid galleryId)
+        {
+            var gallery = await mediator.Send(new GetArtGalleryByIdQuery(galleryId));
+
+            if (gallery == null)
+            {
+                return StatusCode(StatusCodes.Status404NotFound, null);
+            }
+
+            var result = new GetArtGalleryResult(gallery.Id, 
+                gallery.Name,
+                gallery.City,
+                gallery.Manager,
+                gallery.ArtWorksOnDisplay?
+                .Select(a => new GetArtGalleryArtWorksResult(a.Id,a.Name, a.Author, a.CreationYear, a.AskPrice)).ToList());
+
+            return Ok(result);
+        }
+
+        [HttpGet]
         [Route("{galleryId}/art-works")]
         public async Task<ActionResult<List<GetArtGalleryArtWorksResult>>> GetAllGalleryArtWorks([FromRoute] Guid galleryId)
         {

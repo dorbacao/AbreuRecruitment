@@ -17,21 +17,21 @@ export class NewGallery implements IGallery {
   public name: string;
   public city: string;
   public manager: string;
-  public artWorkRequest: NewWork[] = [];
+  public artWorks: NewWork[] = [];
 
   constructor(){
     this.name = '';
     this.city = '';
     this.manager = '';
-    this.artWorkRequest = [];
+    this.artWorks = [];
   }
   
   addWorks(newWork: NewWork){
-    this.artWorkRequest.push(newWork);
+    this.artWorks.push(newWork);
   }
 
   removeWork(index: number){
-    this.artWorkRequest.splice(index,1);
+    this.artWorks.splice(index,1);
   }
   
 }

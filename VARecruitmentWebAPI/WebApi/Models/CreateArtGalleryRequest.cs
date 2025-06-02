@@ -11,12 +11,12 @@ namespace VAArtGalleryWebAPI.WebApi.Models
         public string Name { get; set; }
         public string City { get; set; }
         public string Manager { get; set; }
-        public IList<CreateArtWorkRequest> ArtWorkRequest { get; set; } = new List<CreateArtWorkRequest>();
+        public IList<CreateArtWorkRequest> ArtWorks { get; set; } = new List<CreateArtWorkRequest>();
 
         public CreateArtGalleryCommand ToCommand()
         {
             var artWorks = this
-                .ArtWorkRequest
+                .ArtWorks
                 .Select(artWork => new CreateArtWork(artWork.Name, artWork.Author, artWork.CreationYear, artWork.AskPrice)).ToList();
             var command = new CreateArtGalleryCommand(this.Name, this.City, this.Manager, artWorks);
 

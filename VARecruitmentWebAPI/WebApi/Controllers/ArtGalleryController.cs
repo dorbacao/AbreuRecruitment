@@ -43,5 +43,17 @@ namespace VAArtGalleryWebAPI.WebApi.Controllers
             return StatusCode(StatusCodes.Status201Created, result);
         }
 
+
+        [HttpDelete]
+        [Route("{galleryId}")]
+        public async Task<ActionResult<bool>> DeleteAsync([FromRoute] Guid galleryId)
+        {
+            var resultSuccess = await mediator.Send(new DeleteArtGalleryCommand(galleryId));
+
+            var status = resultSuccess ? StatusCodes.Status200OK: StatusCodes.Status404NotFound;
+
+            return StatusCode(status, resultSuccess);
+        }
+
     }
 }

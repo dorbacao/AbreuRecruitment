@@ -7,7 +7,7 @@ import { StaticProvider } from '@angular/core';
 
 platformBrowserDynamic().bootstrapModule(AppModule, {
   ngZoneEventCoalescing: true,
-  providers:[provideAnimations(),  <any>provideToastr()]
+  providers:[provideAnimations(),  <any>provideToastr({positionClass: 'custom-toast-center'})]
     
 })
   .catch(err => console.error(err));

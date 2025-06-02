@@ -2,4 +2,18 @@
     display: flex;
     justify-content: flex-end; /* Alinha à direita */
     margin-bottom: 1cap;
-  }
+}
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+  
+.full-width-table {
+    width: 100%;
+    table-layout: fixed;
+}
+.column-center{
+    text-align: center;
+}
+

@@ -6,4 +6,5 @@ namespace VAArtGalleryWebAPI.Application.Queries
     public class GetAllArtGalleriesQuery : IRequest<List<ArtGallery>>
     {
     }
+
 }

@@ -27,12 +27,7 @@ export class NewGalleryDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: NewGallery) {
 
       this.newGallery = data;
-      this.refreshTable();
-      newGalleryDialog.afterClosed().subscribe(result=>{
-        if(!result){
-          this.toastr.warning("Utilizador cancelou a inclusão de uma galeria", 'Cancelado');
-        }        
-      });
+      this.refreshTable();      
     }
 
   refreshTable(): void{
@@ -40,12 +35,23 @@ export class NewGalleryDialogComponent {
   }
 
   closeDialog(): void {
-    this.newGalleryDialog.close(false);
+    const confirmDialog = this.confirmDialog.open(ConfirmDialogComponent, {
+      width: '400px',
+      data: 'Deseja realmente cancelar esta inclusão?'
+    });
+
+    confirmDialog.afterClosed().subscribe(result => {
+      if (result) {
+        this.newGalleryDialog.close(false);
+        this.toastr.warning("Inclusão cancelada pelo utilizador", "Cancelado");
+      }
+    });
+    
   }
 
   createNewGallery(): void {
     this.galleryService.createGallery(this.newGallery).subscribe(response => {
-      console.log('Galeria criada:', response);
+      this.toastr.success("Nova galeria incluida com sucesso!", "Inclusão");
       this.newGalleryDialog.close(true);
     });    
   }
@@ -60,9 +66,9 @@ export class NewGalleryDialogComponent {
       if (result) {
         this.newGallery.removeWork(currentWork);
         this.refreshTable();
-        this.toastr.success("Arte removida com sucesso", "Sucesso");
+        this.toastr.success("Arte removida da lista com sucesso, utilize o botão salvar para confirmar.", "Sucesso");
       } else {
-        this.toastr.warning("Remoção da arte cancelada", "Cancelado");
+        this.toastr.warning("Exclusão da arte cancelada", "Cancelado");
       }
     });
   }
@@ -70,7 +76,6 @@ export class NewGalleryDialogComponent {
   addWork(): void{
     this.newGallery.addWorks(this.newWork);
     this.newWork = new NewWork();
-    this.toastr.success("Arte incluida com sucesso, utilize o botão salvar para confirmar!", "Sucesso");
     this.refreshTable();
   }
 }

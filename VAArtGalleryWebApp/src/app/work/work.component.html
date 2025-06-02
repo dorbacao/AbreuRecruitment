@@ -1,10 +1,13 @@
-<div>
+<div class="container">
     <h1>
       Artes da galeria
     </h1>
 
+    <div class="button-container">
+        <button mat-button color="primary" [routerLink]="'/'">Lista de Galerias</button>
+      </div>
 
-    <table mat-table [dataSource]="works">
+    <table mat-table [dataSource]="works" class="full-width-table">
   
       <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Nome </th>

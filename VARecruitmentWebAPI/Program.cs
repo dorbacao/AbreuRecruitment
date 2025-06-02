@@ -1,4 +1,8 @@
+using FluentValidation;
+using VAArtGalleryWebAPI.Application.Commands;
+using VAArtGalleryWebAPI.Application.Commands.Validators;
 using VAArtGalleryWebAPI.Infrastructure;
+using VAArtGalleryWebAPI.WebApi.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +15,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddRepositories(builder.Configuration);
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
+builder.Services.ConfigureMediatR();
 
 var app = builder.Build();
 

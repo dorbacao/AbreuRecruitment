@@ -1,6 +1,3 @@
-using FluentValidation;
-using VAArtGalleryWebAPI.Application.Commands;
-using VAArtGalleryWebAPI.Application.Commands.Validators;
 using VAArtGalleryWebAPI.Infrastructure;
 using VAArtGalleryWebAPI.WebApi.Middleware;
 

@@ -24,9 +24,9 @@ export class NewGalleryDialogComponent {
     private confirmDialog: MatDialog,
     private toastr: ToastrService,
     public newGalleryDialog: MatDialogRef<NewGalleryDialogComponent>,  
-    @Inject(MAT_DIALOG_DATA) public data: NewGallery) {
+    @Inject(MAT_DIALOG_DATA) public data: any) {
 
-      this.newGallery = data;
+      this.newGallery = data.gallery;
       this.refreshTable();      
     }
 
@@ -49,11 +49,19 @@ export class NewGalleryDialogComponent {
     
   }
 
-  createNewGallery(): void {
-    this.galleryService.createGallery(this.newGallery).subscribe(response => {
-      this.toastr.success("Nova galeria incluida com sucesso!", "Inclusão");
-      this.newGalleryDialog.close(true);
-    });    
+  saveGallery(): void {
+    if(this.data.newGallery){
+      this.galleryService.createGallery(this.newGallery).subscribe(response => {
+        this.toastr.success("Nova galeria incluida com sucesso!", "Inclusão");
+        this.newGalleryDialog.close(true);
+      });    
+    }else{
+      this.galleryService.updateGallery(this.newGallery).subscribe(response => {
+        this.toastr.success("Galeria alterada com sucesso!", "Alteração");
+        this.newGalleryDialog.close(true);
+      }); 
+    }
+    
   }
 
   removeWork(currentWork: number): void{
@@ -64,7 +72,7 @@ export class NewGalleryDialogComponent {
 
     confirmDialog.afterClosed().subscribe(result => {
       if (result) {
-        this.newGallery.removeWork(currentWork);
+        this.newGallery.artWorks.splice(currentWork,1);
         this.refreshTable();
         this.toastr.success("Arte removida da lista com sucesso, utilize o botão salvar para confirmar.", "Sucesso");
       } else {
@@ -74,7 +82,15 @@ export class NewGalleryDialogComponent {
   }
 
   addWork(): void{
-    this.newGallery.addWorks(this.newWork);
+    if(!/^[0-9]{4}$/.test(this.newWork.creationYear)){
+      this.toastr.error("Ano de Criação da obra é inválido", "Validação");
+      return;
+    }
+    if(!/^\d+(\.\d{4})?$/.test(this.newWork.askPrice)){
+      this.toastr.error("Preço da obra é inválido", "Validação");
+      return;
+    }   
+    this.newGallery.artWorks.push(this.newWork);
     this.newWork = new NewWork();
     this.refreshTable();
   }

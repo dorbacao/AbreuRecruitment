@@ -1,8 +1,4 @@
-﻿using MediatR;
-using System.Xml.Linq;
-using VAArtGalleryWebAPI.Application.Commands;
-using VAArtGalleryWebAPI.Domain.Entities;
-using VAArtGalleryWebAPI.WebApi.Models;
+﻿using VAArtGalleryWebAPI.Application.Commands;
 
 namespace VAArtGalleryWebAPI.WebApi.Models
 {

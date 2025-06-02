@@ -65,6 +65,17 @@ namespace VAArtGalleryWebAPI.WebApi.Controllers
             return StatusCode(StatusCodes.Status201Created, result);
         }
 
+        [HttpPut]
+        [Route("{galleryId}")]
+        public async Task<ActionResult<CreateArtGalleryResult>> UpdateArtGallery([FromBody] UpdateArtGalleryRequest request)
+        {
+            var artGallery = await mediator.Send(request.ToCommand());
+
+            var result = new CreateArtGalleryResult(artGallery.Id);
+
+            return StatusCode(StatusCodes.Status201Created, result);
+        }
+
 
         [HttpDelete]
         [Route("{galleryId}")]

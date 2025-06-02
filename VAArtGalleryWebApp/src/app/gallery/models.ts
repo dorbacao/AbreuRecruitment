@@ -14,26 +14,20 @@ export interface Gallery extends IGallery {
 
 export class NewGallery implements IGallery {
 
+  public id: string;
   public name: string;
   public city: string;
   public manager: string;
   public artWorks: NewWork[] = [];
 
   constructor(){
+    this.id = '';
     this.name = '';
     this.city = '';
     this.manager = '';
     this.artWorks = [];
   }
-  
-  addWorks(newWork: NewWork){
-    this.artWorks.push(newWork);
-  }
-
-  removeWork(index: number){
-    this.artWorks.splice(index,1);
-  }
-  
+    
 }
 
 export class NewWork {
@@ -41,14 +35,14 @@ export class NewWork {
   constructor(){
     this.name = '';
     this.author = '';
-    this.creationYear = 0;
-    this.askPrice = 0.00;
+    this.creationYear = '';
+    this.askPrice = '';
   }
 
   public name: string;
   public author: string;
-  public creationYear: number;
-  public askPrice: number;
+  public creationYear: string;
+  public askPrice: string;
 }
 
 

@@ -1,7 +1,8 @@
 ﻿namespace VAArtGalleryWebAPI.Application.Commands
 {
-    public class CreateArtWork(string name, string author, int creationYear, decimal askPrice)
+    public class UpdateArtWork(Guid id, string name, string author, int creationYear, decimal askPrice)
     {
+        public Guid Id { get; set; } = id;
         public string Name { get; set; } = name;
         public string Author { get; set; } = author;
         public int CreationYear { get; set; } = creationYear;

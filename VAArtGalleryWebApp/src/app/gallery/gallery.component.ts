@@ -37,7 +37,7 @@ export class GalleryComponent implements OnInit {
       let dialogResult = this.dialog.open(NewGalleryDialogComponent, {
         maxWidth: '100vw',
         width: '80%',
-        data: gallery,
+        data: {newGallery:false, gallery}
       });
       dialogResult.afterClosed().subscribe(()=>{
         this.refreshAllGallery();
@@ -48,7 +48,6 @@ export class GalleryComponent implements OnInit {
   }
 
   openArtWorksList(galleryId: string) {
-    console.log(galleryId);
     this.router.navigate(["art-works", galleryId]);
   }
 
@@ -84,7 +83,7 @@ export class GalleryComponent implements OnInit {
     let dialogResult = this.dialog.open(NewGalleryDialogComponent, {
       maxWidth: '100vw',
       width: '80%',
-      data: new NewGallery(),
+      data: {newGallery:true, gallery: new NewGallery()}
     });
     dialogResult.afterClosed().subscribe(()=>{
       this.refreshAllGallery();

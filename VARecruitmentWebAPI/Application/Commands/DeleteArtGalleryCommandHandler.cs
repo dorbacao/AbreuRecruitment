@@ -15,9 +15,7 @@ namespace VAArtGalleryWebAPI.Application.Commands
 
         public async Task<bool> Handle(DeleteArtGalleryCommand request, CancellationToken cancellationToken)
         {
-            var result = await _artGalleryRepository.DeleteArtGalleryAsync(request.ArtGalleryId, cancellationToken);
-
-            return result;
+            return await _artGalleryRepository.DeleteArtGalleryAsync(request.ArtGalleryId, cancellationToken);
         }
     }
 

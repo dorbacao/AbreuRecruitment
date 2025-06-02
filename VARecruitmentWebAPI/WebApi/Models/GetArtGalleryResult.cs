@@ -1,5 +1,4 @@
-﻿using VAArtGalleryWebAPI.Domain.Entities;
-
+﻿
 namespace VAArtGalleryWebAPI.WebApi.Models
 {
     public class GetArtGalleryResult(Guid id, string name, string city, string manager, IList<GetArtGalleryArtWorksResult>? artWorks )

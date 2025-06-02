@@ -21,7 +21,12 @@ export class ErrorMessageHttpInterceptor implements HttpInterceptor {
           this.toastr.error(message, "Erro de Validação",  {
             enableHtml: true
           });
+        }else if(error.error && error.error.title){
+          this.toastr.error(error.error.title, "Erro de Validação",  {
+            enableHtml: true
+          });
         }
+
         return throwError(() => error);
       })
     );

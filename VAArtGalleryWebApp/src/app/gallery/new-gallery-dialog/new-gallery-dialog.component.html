@@ -30,7 +30,7 @@
 
     <mat-form-field appearance="outline">
         <mat-label>Ano de Criação</mat-label>
-        <input matInput [(ngModel)]="newWork.creationYear">
+        <input matInput maxlength="4" [(ngModel)]="newWork.creationYear">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
@@ -77,7 +77,7 @@
     </table>
 
     <mat-dialog-actions>
-        <button mat-button color="primary" (click)="createNewGallery()">Salvar</button>
+        <button mat-button color="primary" (click)="saveGallery()">Salvar</button>
         <button mat-button (click)="closeDialog()">Fechar</button>
     </mat-dialog-actions>
 </div>

@@ -41,14 +41,14 @@ namespace VAArtGalleryWebAPI.Infrastructure
 
             var galleries = await artGalleryRepository.GetAllArtGalleriesAsync(cancellationToken);
 
-            var gallery = galleries.Single(a => a.ArtWorksOnDisplay?.Any(art => art.Id == artWorkId) == true);
+            var gallery = galleries.Find(a => a.ArtWorksOnDisplay?.Any(art => art.Id == artWorkId) == true);
 
             if (gallery == null)
             {
                 return false;
             }
 
-            var artWork = gallery.ArtWorksOnDisplay?.Single(art => art.Id == artWorkId) ?? throw new ArgumentException("unknown art work", nameof(artWorkId));
+            var artWork = gallery.ArtWorksOnDisplay?.Find(art => art.Id == artWorkId) ?? throw new ArgumentException("unknown art work", nameof(artWorkId));
 
             gallery.SellArtWork(artWork);
 

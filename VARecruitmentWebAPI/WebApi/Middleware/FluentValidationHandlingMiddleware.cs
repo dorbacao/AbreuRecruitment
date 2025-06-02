@@ -24,6 +24,11 @@ namespace VAArtGalleryWebAPI.WebApi.Middleware
                 _logger.LogError(ex, "Erro inesperado no servidor");
                 await HandleExceptionAsync(context, ex);
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro inesperado no servidor");
+                await HandleExceptionAsync(context, ex);
+            }
         }
 
         private static Task HandleExceptionAsync(HttpContext context, ValidationException exception)
@@ -34,6 +39,15 @@ namespace VAArtGalleryWebAPI.WebApi.Middleware
             var messages = string.Join(Environment.NewLine, exception.Errors.Select(a => a.ErrorMessage).ToList());
 
             var response = new { message = messages };
+
+            return context.Response.WriteAsJsonAsync(response);
+        }
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        {
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = StatusCodes.Status400BadRequest;
+
+            var response = new { message = exception.Message };
 
             return context.Response.WriteAsJsonAsync(response);
         }

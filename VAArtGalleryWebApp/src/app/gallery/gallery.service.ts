@@ -22,6 +22,10 @@ export class GalleryService {
     return this.http.post<NewGallery>(this.baseUrl, gallery);
   }
 
+  updateGallery(gallery: NewGallery): Observable<NewGallery> {
+    return this.http.put<NewGallery>(`${this.baseUrl}/${gallery.id}`, gallery);
+  }
+
   deleteGallery(galleryId: string): Observable<boolean> {
     return this.http.delete<boolean>(`${this.baseUrl}/${galleryId}`);
   }

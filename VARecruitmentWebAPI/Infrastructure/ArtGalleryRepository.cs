@@ -39,6 +39,21 @@ namespace VAArtGalleryWebAPI.Infrastructure
             return artGallery;
 
         }
+        public async Task<ArtGallery> UpdateArtGalleryAsync(ArtGallery artGallery, CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var galleries = await GetAllArtGalleriesAsync(cancellationToken);
+
+            galleries.RemoveAll(a=>a.Id == artGallery.Id);
+            galleries.Add(artGallery);
+
+            await UpdateGalleryAsync(galleries);
+
+            return artGallery;
+
+        }
+        
 
         public async Task<bool> DeleteArtGalleryAsync(Guid artGalleryId, CancellationToken cancellationToken = default)
         {

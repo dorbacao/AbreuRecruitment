@@ -6,6 +6,6 @@
         public string Author { get; set; }
         public int CreationYear { get; set; }
         public decimal AskPrice { get; set; }
-
     }
+
 }

@@ -17,21 +17,21 @@ export class NewGallery implements IGallery {
   public name: string;
   public city: string;
   public manager: string;
-  public createArtWorkRequest: NewWork[] = [];
+  public artWorkRequest: NewWork[] = [];
 
   constructor(){
-    this.name = 'Marcus';
-    this.city = 'Almada';
-    this.manager = 'Marcus';
-    this.createArtWorkRequest = [];
+    this.name = '';
+    this.city = '';
+    this.manager = '';
+    this.artWorkRequest = [];
   }
   
   addWorks(newWork: NewWork){
-    this.createArtWorkRequest.push(newWork);
+    this.artWorkRequest.push(newWork);
   }
 
   removeWork(index: number){
-    this.createArtWorkRequest.splice(index,1);
+    this.artWorkRequest.splice(index,1);
   }
   
 }
@@ -39,10 +39,10 @@ export class NewGallery implements IGallery {
 export class NewWork {
   
   constructor(){
-    this.name = 'sdfgsdfg';
-    this.author = 'sdfgsdgfsdfg';
-    this.creationYear = 1986;
-    this.askPrice = 654654.00;
+    this.name = '';
+    this.author = '';
+    this.creationYear = 0;
+    this.askPrice = 0.00;
   }
 
   public name: string;

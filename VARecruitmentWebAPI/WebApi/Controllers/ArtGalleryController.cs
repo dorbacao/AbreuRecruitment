@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using FluentValidation;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using VAArtGalleryWebAPI.Application.Commands;
@@ -34,11 +35,11 @@ namespace VAArtGalleryWebAPI.WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<CreateArtGalleryResult>> Create([FromBody] CreateArtGalleryRequest request)
+        public async Task<ActionResult<CreateArtGalleryResult>> CreateArtGallery([FromBody] CreateArtGalleryRequest request)
         {
-            var artGalleryId = await mediator.Send(request.ToCommand());
+            var artGallery = await mediator.Send(request.ToCommand());
 
-            var result = new CreateArtGalleryResult(artGalleryId);
+            var result = new CreateArtGalleryResult(artGallery.Id);
 
             return StatusCode(StatusCodes.Status201Created, result);
         }
@@ -50,7 +51,7 @@ namespace VAArtGalleryWebAPI.WebApi.Controllers
         {
             var resultSuccess = await mediator.Send(new DeleteArtGalleryCommand(galleryId));
 
-            var status = resultSuccess ? StatusCodes.Status200OK: StatusCodes.Status404NotFound;
+            var status = resultSuccess ? StatusCodes.Status200OK : StatusCodes.Status404NotFound;
 
             return StatusCode(status, resultSuccess);
         }

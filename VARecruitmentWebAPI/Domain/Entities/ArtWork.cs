@@ -1,5 +1,6 @@
 ﻿namespace VAArtGalleryWebAPI.Domain.Entities
 {
+
     public class ArtWork(string name, string author, int creationYear, decimal askPrice)
     {
         public Guid Id { get; set; } = Guid.NewGuid();

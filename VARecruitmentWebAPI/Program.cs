@@ -2,7 +2,7 @@ using FluentValidation;
 using VAArtGalleryWebAPI.Application.Commands;
 using VAArtGalleryWebAPI.Application.Commands.Validators;
 using VAArtGalleryWebAPI.Infrastructure;
-using VAArtGalleryWebAPI.WebApi.Extensions;
+using VAArtGalleryWebAPI.WebApi.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +32,8 @@ app.UseCors(builder => builder
     .AllowAnyHeader());
 
 app.UseHttpsRedirection();
+
+app.UseMiddleware<FluentValidationHandlingMiddleware>();
 
 app.UseAuthorization();
 

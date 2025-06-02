@@ -1,8 +1,9 @@
 ﻿using FluentValidation;
 using VAArtGalleryWebAPI.Application.Commands.Validators;
 using VAArtGalleryWebAPI.Application.Commands;
+using MediatR;
 
-namespace VAArtGalleryWebAPI.WebApi.Extensions
+namespace VAArtGalleryWebAPI.WebApi.Middleware
 {
     public static class ServiceCollectionExtensions
     {
@@ -10,6 +11,10 @@ namespace VAArtGalleryWebAPI.WebApi.Extensions
         {
             serviceCollection.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));
             serviceCollection.AddScoped<IValidator<CreateArtGalleryCommand>, CreateArtGalleryValidator>();
+            serviceCollection.AddScoped(typeof(IPipelineBehavior<,>), typeof(FluentValidationPipelineBehavior<,>));
+
+
         }
     }
+
 }

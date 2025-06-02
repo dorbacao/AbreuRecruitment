@@ -10,14 +10,11 @@ namespace VAArtGalleryWebAPI.Infrastructure
 
         public async Task<List<ArtGallery>> GetAllArtGalleriesAsync(CancellationToken cancellationToken = default)
         {
-            return await Task.Run(() =>
-            {
-                cancellationToken.ThrowIfCancellationRequested();
+            cancellationToken.ThrowIfCancellationRequested();
 
-                using StreamReader sr = new(_filePath);
-                string galleriesJson = sr.ReadToEnd();
-                return JsonSerializer.Deserialize<List<ArtGallery>>(galleriesJson) ?? [];
-            });
+            using StreamReader sr = new(_filePath);
+            string galleriesJson = await sr.ReadToEndAsync();
+            return JsonSerializer.Deserialize<List<ArtGallery>>(galleriesJson) ?? [];
         }
 
         public async Task<ArtGallery?> GetArtGalleryByIdAsync(Guid id, CancellationToken cancellationToken = default)
@@ -28,7 +25,7 @@ namespace VAArtGalleryWebAPI.Infrastructure
             return galleries.Find(g => g.Id == id);
         }
 
-        public async Task<ArtGallery> CreateAsync(ArtGallery artGallery, CancellationToken cancellationToken = default)
+        public async Task<ArtGallery> CreateArtGalleryAsync(ArtGallery artGallery, CancellationToken cancellationToken = default)
         {
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -37,13 +34,9 @@ namespace VAArtGalleryWebAPI.Infrastructure
             artGallery.Id = Guid.NewGuid();
             galleries.Add(artGallery);
 
-            return await Task.Run(() =>
-            {
-                using TextWriter tw = new StreamWriter(_filePath, false);
-                tw.Write(JsonSerializer.Serialize(galleries));
+            await UpdateGalleryAsync(galleries);
 
-                return artGallery;
-            });
+            return artGallery;
 
         }
 

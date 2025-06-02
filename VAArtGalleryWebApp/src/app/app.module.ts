@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { HttpClientModule } from '@angular/common/http';
 import { WorkComponent } from './work/work.component';
 import localePt from '@angular/common/locales/pt';
-import localeDe from '@angular/common/locales/de';
 import { MoneyPipe } from './pipes/money';
 import { MatDialogModule } from '@angular/material/dialog';
 import { NewGalleryDialogComponent } from './gallery/new-gallery-dialog/new-gallery-dialog.component';
@@ -20,9 +19,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { ToastrModule } from 'ngx-toastr';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ErrorMessageHttpInterceptor } from './interceptors/http.interceptor';
 
 registerLocaleData(localePt);
-registerLocaleData(localeDe);
 
 @NgModule({
   declarations: [
@@ -50,8 +50,10 @@ registerLocaleData(localeDe);
     ToastrModule.forRoot()
   ],
   exports:[MoneyPipe],
-  providers: [  { provide: LOCALE_ID, useValue: 'pt-PT' }],
-  //providers: [  { provide: LOCALE_ID, useValue: 'de-DE' }], //this code is only to provocate dialog
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pt-PT' },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorMessageHttpInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

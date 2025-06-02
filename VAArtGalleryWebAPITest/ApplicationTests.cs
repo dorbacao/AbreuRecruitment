@@ -2,6 +2,7 @@ using VAArtGalleryWebAPI.Application.Queries;
 using Moq;
 using VAArtGalleryWebAPI.Domain.Entities;
 using VAArtGalleryWebAPI.Domain.Interfaces;
+using VAArtGalleryWebAPI.Application.Commands;
 
 namespace VAArGalleryWebAPITest
 {
@@ -9,11 +10,13 @@ namespace VAArGalleryWebAPITest
     {
         ArtGallery g1 = new ArtGallery("Gallery One", "Beja", "Baltazar Braz");
         ArtGallery g2 = new ArtGallery("Gallery Two", "Bragança", "Bernardo Beltrão");
+        ArtGallery g3 = new ArtGallery("Uffizi Gallery", "Florença", "Giovanni");
         ArtWork a1 = new ArtWork("obra 1", "artista 1", 1900, 1000);
         ArtWork a2 = new ArtWork("obra 2", "artista 1", 1910, 1500);
         ArtWork a3 = new ArtWork("obra 3", "artista 2", 1920, 2000);
         ArtWork a4 = new ArtWork("obra 4", "artista 3", 1930, 5000);
         ArtWork a5 = new ArtWork("obra 5", "artista 4", 1940, 10000);
+        ArtWork a6 = new ArtWork("O Nascimento de Vênus", "Sandro Botticelli", 1485, 30000);
 
 
         [SetUp]
@@ -26,7 +29,7 @@ namespace VAArGalleryWebAPITest
         public async Task Test_Returns_the_galleries_successfully()
         {
             var r = await new GetAllArtGalleriesQueryHandler(NormalArtGalleryRepositoryMock().Object).Handle(new GetAllArtGalleriesQuery(), CancellationToken.None);
-            
+
             Assert.That(r, Is.Not.Null);
             Assert.That(r.Count, Is.EqualTo(2));
             Assert.That(r.First().Manager, Is.EqualTo("Baltazar Braz"));
@@ -50,11 +53,28 @@ namespace VAArGalleryWebAPITest
             Assert.That(r.First(), Is.EqualTo(a1));
         }
 
+        [Test]
+        public async Task Test_Create_the_new_gallery_successfully()
+        {
+            var artWorks = new List<CreateArtWork>() {
+                new CreateArtWork("O Nascimento de Vênus", "Sandro Botticelli", 1485,30000),
+            };
+            var c = new CreateArtGalleryCommand("Uffizi Gallery", "Florença", "Giovanni", artWorks);
+            var r = await new CreateArtGalleryCommandHandler(NormalArtGalleryRepositoryMock().Object).Handle(c, CancellationToken.None);
+
+            Assert.That(r.Id, Is.Not.EqualTo(Guid.Empty));
+            Assert.That(r.Name, Is.EqualTo(c.Name));
+            Assert.That(r.City, Is.EqualTo(c.City));
+            Assert.That(r.Manager, Is.EqualTo(c.Manager));
+            Assert.That(r.ArtWorksOnDisplay?.Count, Is.EqualTo(c.ArtWorks.Count));
+        }
+
 
         private void SetupGalleriesAndWorks()
         {
             g1.Id = Guid.Parse("7af0ed23-36c1-4097-bae4-525da3b129ce");
             g2.Id = Guid.Parse("c576a9e6-d1ae-4382-98b1-f06de68926a9");
+            g3.Id = Guid.Parse("c412b9e6-377f-4e86-ab2b-c1414b1efaaf");
 
             a1.Id = Guid.Parse("733c9b88-2932-4144-93c6-7e2442ae7d62");
             a1.Id = Guid.Parse("9870e314-296a-4fcd-ab2b-c70fe4c1e820");
@@ -64,12 +84,14 @@ namespace VAArGalleryWebAPITest
 
             g1.ArtWorksOnDisplay = new List<ArtWork> { a1, a2 };
             g1.ArtWorksOnDisplay = new List<ArtWork> { a3, a4, a5 };
+            g3.ArtWorksOnDisplay = new List<ArtWork> { a6 };
         }
 
         private Mock<IArtGalleryRepository> NormalArtGalleryRepositoryMock()
         {
             var mock = new Mock<IArtGalleryRepository>(MockBehavior.Strict);
             mock.Setup(m => m.GetAllArtGalleriesAsync(It.IsAny<CancellationToken>())).ReturnsAsync([g1, g2]);
+            mock.Setup(m => m.CreateArtGalleryAsync(It.IsAny<ArtGallery>(), It.IsAny<CancellationToken>())).ReturnsAsync(g3);
 
             return mock;
         }

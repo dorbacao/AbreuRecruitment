@@ -6,7 +6,7 @@ using VAArtGalleryWebAPI.Domain.Interfaces;
 namespace VAArtGalleryWebAPI.Application.Commands
 {
 
-    public class CreateArtGalleryCommandHandler : IRequestHandler<CreateArtGalleryCommand, Guid>
+    public class CreateArtGalleryCommandHandler : IRequestHandler<CreateArtGalleryCommand, ArtGallery>
     {
         private readonly IArtGalleryRepository _artGalleryRepository;
 
@@ -15,15 +15,19 @@ namespace VAArtGalleryWebAPI.Application.Commands
             _artGalleryRepository = artGalleryRepository;
         }
 
-        public async Task<Guid> Handle(CreateArtGalleryCommand request, CancellationToken cancellationToken)
+        public async Task<ArtGallery> Handle(CreateArtGalleryCommand request, CancellationToken cancellationToken)
         {
             var newGallery = new ArtGallery(request.Name, request.City, request.Manager);
-            
-            request.ArtWorks.ForEach(art => newGallery.DisplayNewArtWork(art));
 
-            await _artGalleryRepository.CreateAsync(newGallery, cancellationToken);
+            request.ArtWorks.ForEach(art =>
+            {
+                var artWork = new ArtWork(art.Name, art.Author, art.CreationYear, art.AskPrice);
+                newGallery.DisplayNewArtWork(artWork);
+            });
 
-            return newGallery.Id;
+            await _artGalleryRepository.CreateArtGalleryAsync(newGallery, cancellationToken);
+
+            return newGallery;
         }
     }
 
